@@ -1,0 +1,18 @@
+{
+    "author": "Pedro Prieto Alarcón",
+    "name": "dwec_u07_a01_cpe_s",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build"
+    },
+    "dependencies": {
+        "google-one-tap": "^1.0.6",
+        "jwt-decode": "^3.1.2",
+        "vue": "^3.2.13"
+    },
+    "devDependencies": {
+        "@vue/cli-service": "~5.0.0"
+    }
+}
