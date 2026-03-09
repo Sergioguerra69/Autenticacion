@@ -1,17 +1,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { ProveedorAutenticacion } from './ContextoAutenticacion';
+import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function iniciarAplicacion() {
+  const rootElement = document.getElementById('root');
+  
+  if (!rootElement) {
+    console.error('ERROR: No se encontró el elemento con id="root"');
+    console.log('Reintentando en 100ms...');
+    setTimeout(iniciarAplicacion, 100);
+    return;
+  }
+  
+  console.log(' Root encontrado, montando React...');
+  
+  try {
+    const root = ReactDOM.createRoot(rootElement);
+    
+    root.render(
+      <React.StrictMode>
+        <ProveedorAutenticacion>
+          <App />
+        </ProveedorAutenticacion>
+      </React.StrictMode>
+    );
+    
+    console.log('✅ React montado correctamente');
+  } catch (error) {
+    console.error('❌ Error al montar React:', error);
+  }
+}
+
+if (document.readyState === 'loading') {
+
+  document.addEventListener('DOMContentLoaded', iniciarAplicacion);
+} else {
+ 
+  iniciarAplicacion();
+}
+
+
+setTimeout(iniciarAplicacion, 1000);
