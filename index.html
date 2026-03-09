@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cliente Basic Auth</title>
+</head>
+<body>
+    <h2>Prueba de autenticación básica desde el navegador</h2>
+    <button onclick="accederRecurso()">Acceder al recurso protegido</button>
+    <div id="resultado"></div>
+
+    <script>
+        function accederRecurso() {
+            const usuario = 'admin';
+            const contrasena = '1234';
+            
+            // Codificar usuario:contraseña en Base64
+            const credencialCodificada = btoa(usuario + ':' + contrasena);
+            
+            // Configurar cabecera Authorization
+            const cabeceras = new Headers();
+            cabeceras.set('Authorization', 'Basic ' + credencialCodificada);
+
+            // Realizar petición
+            fetch('http://localhost:3000/protegido', {
+                method: 'GET',
+                headers: cabeceras
+            })
+            .then(respuesta => respuesta.text())
+            .then(datos => {
+                document.getElementById('resultado').innerText = datos;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

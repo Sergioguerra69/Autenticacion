@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cliente JWT</title>
+</head>
+<body>
+    <h2>Prueba de autenticación JWT</h2>
+    
+    <div>
+        <h3>1. Login</h3>
+        <button onclick="hacerLogin()">Hacer Login (POST)</button>
+        <div id="tokenResultado" style="margin:10px; padding:10px; background:#f0f0f0; word-break:break-all;"></div>
+    </div>
+    
+    <div>
+        <h3>2. Obtener datos protegidos</h3>
+        <button onclick="obtenerDatos()">Obtener Datos Protegidos</button>
+        <div id="datosResultado" style="margin:10px; padding:10px; background:#e0e0e0;"></div>
+    </div>
+
+    <script>
+        let tokenJWT = '';
+        
+        function hacerLogin() {
+            document.getElementById('tokenResultado').innerHTML = 'Conectando...';
+            
+            fetch('http://localhost:4000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombreUsuario: 'alumno',
+                    contrasena: 'web2026'
+                })
+            })
+            .then(respuesta => {
+                if (!respuesta.ok) {
+                    throw new Error(`HTTP ${respuesta.status}: ${respuesta.statusText}`);
+                }
+                return respuesta.json();
+            })
+            .then(datos => {
+                tokenJWT = datos.token;
+                document.getElementById('tokenResultado').innerHTML = 
+                    '<strong>Token recibido (primeros 50 caracteres):</strong><br>' + 
+                    tokenJWT.substring(0, 50) + '...<br>' +
+                    '<small>Longitud total: ' + tokenJWT.length + ' caracteres</small>';
+            })
+            .catch(error => {
+                document.getElementById('tokenResultado').innerHTML = 
+                    '<strong style="color:red;">Error:</strong> ' + error.message + 
+                    '<br><small>Asegúrate de que el servidor está corriendo en puerto 4000</small>';
+                console.error('Error login:', error);
+            });
+        }
+        
+        function obtenerDatos() {
+            if (!tokenJWT) {
+                document.getElementById('datosResultado').innerHTML = 
+                    '<span style="color:orange;">Primero haz login para obtener el token</span>';
+                return;
+            }
+            
+            document.getElementById('datosResultado').innerHTML = 'Solicitando datos...';
+            
+            fetch('http://localhost:4000/api/datos', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + tokenJWT
+                }
+            })
+            .then(respuesta => {
+                if (!respuesta.ok) {
+                    throw new Error(`HTTP ${respuesta.status}: ${respuesta.statusText}`);
+                }
+                return respuesta.json();
+            })
+            .then(datos => {
+                document.getElementById('datosResultado').innerHTML = 
+                    '<strong>Datos recibidos:</strong><br>' + 
+                    JSON.stringify(datos, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('datosResultado').innerHTML = 
+                    '<strong style="color:red;">Error:</strong> ' + error.message;
+                console.error('Error datos:', error);
+            });
+        }
+    </script>
+</body>
+</html>
