@@ -1,4 +1,20 @@
 {
+<<<<<<< HEAD
+  "name": "practica-autenticacion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  }
+=======
     "author": "Pedro Prieto Alarcón",
     "name": "dwec_u07_a01_cpe_s",
     "version": "1.0.0",
@@ -16,4 +32,5 @@
     "devDependencies": {
         "@vue/cli-service": "~5.0.0"
     }
+>>>>>>> 036d8997aae5f543e10a5a999277e2f01d5bae58
 }
