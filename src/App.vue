@@ -33,7 +33,7 @@
   // Importación de las librerías
   import googleOneTap from 'google-one-tap';
   import { useAuth } from './contexts/AuthContext';
-  import KanbanBoard from './components/KanbanBoard.vue';
+  import KanbanBoard from './kanban-components/KanbanBoard.vue';
 
   export default {
       name: 'App',

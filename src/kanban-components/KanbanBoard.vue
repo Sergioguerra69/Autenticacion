@@ -73,11 +73,13 @@
 import { reactive, ref, computed } from 'vue'
 import { useAuth } from '../contexts/AuthContext'
 import KanbanColumn from './KanbanColumn.vue'
+import TaskCard from './TaskCard.vue'
 
 export default {
   name: 'KanbanBoard',
   components: {
-    KanbanColumn
+    KanbanColumn,
+    TaskCard
   },
   setup() {
     const { user } = useAuth()
