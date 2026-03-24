@@ -16,9 +16,10 @@
         <div class="login-card">
           <h1>Kanban Board</h1>
           <p>Para acceder al tablero Kanban, necesitas iniciar sesión con tu cuenta de Google.</p>
+          
           <div class="login-info">
-            <p>🔒 La ventana de Google One Tap aparecerá automáticamente</p>
-            <p>📱 Si no aparece, refresca la página</p>
+            <p>La ventana de Google One Tap aparecerá automáticamente</p>
+            <p>Si no aparece, refresca la página</p>
           </div>
         </div>
       </div>
@@ -51,15 +52,41 @@
         };
       },
       mounted() {
+        console.log('App mounted - isAuthenticated:', this.isAuthenticated);
+        
         // Solo inicializar Google One Tap si no está autenticado
         if (!this.isAuthenticated) {
+          console.log('Inicializando Google One Tap...');
+          
+          // Cargar el script de Google si no está cargado
+          if (!window.google) {
+            const script = document.createElement('script');
+            script.src = 'https://accounts.google.com/gsi/client';
+            script.async = true;
+            script.defer = true;
+            script.onload = () => {
+              console.log('Script de Google cargado');
+              this.initializeGoogleOneTap();
+            };
+            script.onerror = () => {
+              console.error('Error al cargar script de Google');
+            };
+            document.head.appendChild(script);
+          } else {
+            this.initializeGoogleOneTap();
+          }
+        }
+      },
+      methods: {
+        initializeGoogleOneTap() {
+          console.log('Inicializando Google One Tap...');
+          
           // Opciones para Google One Tap
           const options = {
             // Introducir aquí el ID de cliente de la clave creada en la consola de Google
             client_id: '171265399724-rtbgpr7hikmi7vhs4o08vrus316h2b2e.apps.googleusercontent.com',
             auto_select: false,
-            cancel_on_tap_outside: false,
-            origin_url: 'http://127.0.0.1:8080' // Especificar el origen autorizado
+            cancel_on_tap_outside: false
           };
           
           // Se añade el componente de autenticación de Google One Tap
@@ -76,7 +103,7 @@
             }
           });
         }
-      },
+      }
   }
 </script>
 
