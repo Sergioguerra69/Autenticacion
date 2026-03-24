@@ -4,8 +4,8 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "start": "vue-cli-service serve --port 8080",
-        "serve": "vue-cli-service serve --port 8080",
+        "start": "vue-cli-service serve --port 8080 --host localhost",
+        "serve": "vue-cli-service serve --port 8080 --host localhost",
         "build": "vue-cli-service build"
     },
     "dependencies": {
