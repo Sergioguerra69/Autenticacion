@@ -9,7 +9,7 @@
       <div class="browser-info">
         <h4>Importante para pruebas:</h4>
         <p>
-          <strong>⚠️ Usa Firefox para pruebas locales</strong><br>
+          <strong>Usa Firefox para pruebas locales</strong><br>
           Chrome bloquea la autenticación en conexiones HTTP. 
           Para evitar errores, ejecuta esta aplicación en Firefox.
         </p>
